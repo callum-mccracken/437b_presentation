@@ -1,0 +1,29 @@
+\begin{center}
+    \raisebox{3.5mm}{
+    \feynmandiagram [small,horizontal=a to b] {
+    i1 [particle=\($g$\)]
+        -- [gluon] t1 [dot]
+        --  [anti fermion] a [dot]
+        --  [anti fermion] t2 [dot]
+        -- [anti fermion, edge label=\($t/b$\) ] t1,
+    t2 -- [gluon] i2 [particle=\($g$\)],
+    i1 -- [opacity=0] i2,
+    a [label=\(\kappa_t\)] -- [scalar, edge label'=\($H$\)] b [dot, label=\(\kappa_\lambda\)],
+    f1 [particle=\($H$\)] -- [scalar] b -- [scalar] f2 [particle=\($H$\)] -- [opacity=0] f1,
+    };}
+\hspace{1cm}
+    \feynmandiagram [small, layered layout, horizontal=a to b] {
+    % Draw the top and bottom lines
+    i1 [particle=\($g$\)]
+    -- [gluon] a [dot]
+    -- [fermion] b [dot, label=\(\kappa_t\)]
+    -- [scalar] f1 [particle=\($H$\)],
+    i2 [particle=\($g$\)]
+   -- [gluon] c [dot]
+    -- [anti fermion] d [dot, label=below:\(\kappa_t\)]
+    -- [scalar] f2 [particle=\($H$\)],
+    % Draw the two internal fermion lines
+    { [same layer] a -- [anti fermion, edge label=\($t/b$\)] c },
+    { [same layer] b -- [fermion] d},
+    };
+\end{center}

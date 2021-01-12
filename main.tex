@@ -1,4 +1,4 @@
-% !TEX program = xelatex
+% !TEX program = lualatex
 \documentclass[10pt, aspectratio=169]{beamer}
 
 \usepackage{appendixnumberbeamer}
@@ -7,11 +7,13 @@
 \usepackage[scale=2]{ccicons}
 \usepackage{pgfplots}
 \usepackage{xspace}
+\usepackage{tikz-feynman}
 
 \usetheme[progressbar=frametitle,
 subsectionpage=progressbar,
 block=fill]{metropolis}
 
+% make progress bar for every slide rather than just sections
 \makeatletter
 \setlength{\metropolis@frametitle@padding}{1.8ex}% <- default 2.2 ex
 \setbeamertemplate{frametitle}{%
@@ -29,8 +31,7 @@ block=fill]{metropolis}
     \end{beamercolorbox}
     \usebeamertemplate*{progress bar in head/foot}
 }
-
-\setlength{\metropolis@progressinheadfoot@linewidth}{1pt}% just to better see that it's working
+\setlength{\metropolis@progressinheadfoot@linewidth}{1pt}
 
 
 
@@ -43,9 +44,9 @@ block=fill]{metropolis}
 13 January, 2020}
 % \date{\today}
 \date{}
-\author{Callum McCracken\newline
-Supervisor: Maximilian Swiatlowski\newline
-Co-Supervisor: Eduardo Martin-Martinez\newline
+\author{Callum McCracken\\
+Supervisor: Maximilian Swiatlowski\\
+Co-Supervisor: Eduardo Martin-Martinez\\
 Collaborators: Todd Seiss, Mel Shochet}
 
 %\titlegraphic{\hfill\includegraphics[height=1.5cm]{logo.pdf}}
@@ -75,11 +76,14 @@ Collaborators: Todd Seiss, Mel Shochet}
 \begin{frame}{The Big Picture -- Measuring the Higgs Self-Coupling}
   Relevant section of the SM Lagrangian for Higgs potential:\\
   
-  
   $$V(\phi) = -\mu^2 \phi^2 + \lambda \phi^4 + \ldots \text{ Taylor exp. at min } \to V_T(\phi) = -\frac{\mu^4}{4\lambda} + \frac{\sqrt{2}\mu^3}{\lambda} \phi - 4 \mu^2\phi^2 + 2\sqrt{2\lambda}\mu\phi^3 + \ldots$$
 
-  Constant and $\phi$ terms can be removed via change of coordinates, but $\phi^2$: mass term, $\phi^3$: self-interaction or \alert{self-coupling} term, not well constrained.
+  \begin{itemize}
+    \item Constant and $\phi$ terms: can eliminate with change of coordinates, $\phi^2$: mass term,\\
+    $\phi^3$: self-interaction or \alert{self-coupling} term, not well constrained
+  \end{itemize}
 
+  \input{standalone_feynman.tex}
 
 \end{frame}
 
