@@ -91,7 +91,7 @@ Collaborators: Todd Seiss, Mel Shochet}
 
 
 %%%%%%%%%%%%%%%%%%%%% SLIDE 3
-{\setbeamertemplate{frame footer}{Image adapted from \href{https://en.wikipedia.org/wiki/B-tagging}{\alert{here}}}
+{\setbeamertemplate{frame footer}{Image sources: \href{https://arxiv.org/abs/1709.04533}{\alert{branching ratios}}, \href{https://en.wikipedia.org/wiki/B-tagging}{b-tagging image adapted from \alert{here}}}
 \begin{frame}{Jets and Pairing}
   \begin{columns}[onlytextwidth]
     \begin{column}{0.76\textwidth}
@@ -101,7 +101,7 @@ Collaborators: Todd Seiss, Mel Shochet}
       \begin{itemize}
         \item \alert{Jets} are collections of particles with appx. the same direction
         \item ATLAS can't directly detect $H$ or $b$. Instead, use \alert{$b$-jets}, which can be directly detected (using secondary vertices)
-        \item $b$-jet detection is not a perfect process (hence 437A report), and neither is \alert{pairing} -- choosing which jets came from which $H$
+        \item $b$-jet detection is not a perfect process (hence 437A report), and neither is \alert{pairing} -- identifying which jets came from which $H$
       \end{itemize}
     \end{column}
     \begin{column}{0.25\textwidth}
@@ -111,257 +111,127 @@ Collaborators: Todd Seiss, Mel Shochet}
 \end{frame}
 }
 
+
+
 %%%%%%%%%%%%%%%%%%%%% SLIDE 4
-\begin{frame}{The Background Modelling Problem, and the 2$b$RW solution}
-  
-  
-  \begin{alertblock}{Potential problems}
-		This is a potato
+\begin{frame}{Welcome to the Mass Plane}
+  \begin{itemize}
+    \item \alert{Mass plane}: reconstructed $(m_{H_1}, m_{H_2})$ values, $m_{H_1}$ has higher transverse momentum
+    \item We expect a peak around $(125, 125)$ (all masses in GeV)
+    \item \alert{The Problem of Background Modelling}: how to estimate background around peak?
+    \item Signal Region (SR): blinded to reduce study bias
+    \item Control Region (CR): for calibrating background estimation models
+    \item Validation Region (VR): for testing background models
+  \end{itemize}
+  \centering
+  \includegraphics[width=0.45\linewidth]{images/regions.png} \hspace{1cm}
+  \includegraphics[width=0.45\linewidth, trim = 0 0 0 1.5cm, clip]{images/fullmassplane_4tag_data.png}
+\end{frame}
+
+\begin{frame}{The 2$b$RW Solution}
+  \begin{columns}[onlytextwidth]
+    \begin{column}{0.6\textwidth}
+      \begin{itemize}
+        \item All jets are similar to a rough approximation
+        \item \alert{2$b$ data}: uses 2 $b$-jets and 2 other jets
+        \item Similar to 4$b$ data outside of SR, but no peak
+        \item 2$b$RW: derive a scaling (``ReWeighting'') function outside of SR, apply inside
+        \item Provides a good first background estimate
+        \item Assumes RW function applies in SR, may be false
+        \item \alert{This project}: is there a better approach?
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.4\textwidth}
+      \includegraphics[width=\linewidth]{images/fullmassplane_2tag_data.png}\\
+    \end{column}
+​  \end{columns}
+  \begin{alertblock}{Note}
+    Don't forget 2$b$ data is physically different from 4$b$ and 2$b$RW are not \textbf{real} SR values.\\
+    2$b$RW is thought to be correct within around $\pm 10\%$.
 	\end{alertblock}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%% SLIDE 5
-\begin{frame}{All caps}
-	This frame uses the \texttt{allcaps} titleformat.
-
-	\begin{alertblock}{Potential Problems}
-		This titleformat is not as problematic as the \texttt{allsmallcaps} format, but basically suffers from the same deficiencies. So please have a look at the documentation if you want to use it.
-	\end{alertblock}
-\end{frame}
-
-\section{Elements}
-
-\begin{frame}[fragile]{Typography}
-      \begin{verbatim}The theme provides sensible defaults to
-\emph{emphasize} text, \alert{accent} parts
-or show \textbf{bold} results.\end{verbatim}
-
-  \begin{center}becomes\end{center}
-
-  The theme provides sensible defaults to \emph{emphasize} text,
-  \alert{accent} parts or show \textbf{bold} results.
-\end{frame}
-
-\begin{frame}{Font feature test}
-  \begin{itemize}
-    \item Regular
-    \item \textit{Italic}
-    \item \textsc{SmallCaps}
-    \item \textbf{Bold}
-    \item \textbf{\textit{Bold Italic}}
-    \item \textbf{\textsc{Bold SmallCaps}}
-    \item \texttt{Monospace}
-    \item \texttt{\textit{Monospace Italic}}
-    \item \texttt{\textbf{Monospace Bold}}
-    \item \texttt{\textbf{\textit{Monospace Bold Italic}}}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{Lists}
-  \begin{columns}[T,onlytextwidth]
-    \column{0.33\textwidth}
-      Items
+{\setbeamertemplate{frame footer}{Histogram image from Todd Seiss}
+\begin{frame}{New Approach: Neural Network}
+  \begin{columns}[onlytextwidth]
+    \begin{column}{0.6\textwidth}
       \begin{itemize}
-        \item Milk \item Eggs \item Potatos
+        \item Given enough data, neural networks can learn arbitrary functions
+        \item Goal: reproduce 2$b$RW $\pm 10\%$ using only 4$b$ data
+        \item Inputs: $(m_{H_1}, m_{H_2}, m_{HH})$, output: $P(m_{H_1}, m_{H_2})$
+        \item Initial model: layers (10,50,50,50), 100 epochs
+        \item Generally good-looking mass plane predictions,\\
+              2$b$RW agreement is not great though
       \end{itemize}
-
-    \column{0.33\textwidth}
-      Enumerations
-      \begin{enumerate}
-        \item First, \item Second and \item Last.
-      \end{enumerate}
-
-    \column{0.33\textwidth}
-      Descriptions
-      \begin{description}
-        \item[PowerPoint] Meeh. \item[Beamer] Yeeeha.
-      \end{description}
-  \end{columns}
-\end{frame}
-\begin{frame}{Animation}
-  \begin{itemize}[<+- | alert@+>]
-    \item \alert<4>{This is\only<4>{ really} important}
-    \item Now this
-    \item And now this
-  \end{itemize}
-\end{frame}
-\begin{frame}{Figures}
-  \begin{figure}
-    \newcounter{density}
-    \setcounter{density}{20}
-    \begin{tikzpicture}
-      \def\couleur{alerted text.fg}
-      \path[coordinate] (0,0)  coordinate(A)
-                  ++( 90:5cm) coordinate(B)
-                  ++(0:5cm) coordinate(C)
-                  ++(-90:5cm) coordinate(D);
-      \draw[fill=\couleur!\thedensity] (A) -- (B) -- (C) --(D) -- cycle;
-      \foreach \x in {1,...,40}{%
-          \pgfmathsetcounter{density}{\thedensity+20}
-          \setcounter{density}{\thedensity}
-          \path[coordinate] coordinate(X) at (A){};
-          \path[coordinate] (A) -- (B) coordinate[pos=.10](A)
-                              -- (C) coordinate[pos=.10](B)
-                              -- (D) coordinate[pos=.10](C)
-                              -- (X) coordinate[pos=.10](D);
-          \draw[fill=\couleur!\thedensity] (A)--(B)--(C)-- (D) -- cycle;
-      }
-    \end{tikzpicture}
-    \caption{Rotated square from
-    \href{http://www.texample.net/tikz/examples/rotated-polygons/}{texample.net}.}
-  \end{figure}
-\end{frame}
-\begin{frame}{Tables}
-  \begin{table}
-    \caption{Largest cities in the world (source: Wikipedia)}
-    \begin{tabular}{lr}
-      \toprule
-      City & Population\\
-      \midrule
-      Mexico City & 20,116,842\\
-      Shanghai & 19,210,000\\
-      Peking & 15,796,450\\
-      Istanbul & 14,160,467\\
-      \bottomrule
-    \end{tabular}
-  \end{table}
-\end{frame}
-\begin{frame}{Blocks}
-  Three different block environments are pre-defined and may be styled with an
-  optional background color.
-
-  \begin{columns}[T,onlytextwidth]
-    \column{0.5\textwidth}
-      \begin{block}{Default}
-        Block content.
-      \end{block}
-
-      \begin{alertblock}{Alert}
-        Block content.
-      \end{alertblock}
-
-      \begin{exampleblock}{Example}
-        Block content.
-      \end{exampleblock}
-
-    \column{0.5\textwidth}
-
-      \metroset{block=fill}
-
-      \begin{block}{Default}
-        Block content.
-      \end{block}
-
-      \begin{alertblock}{Alert}
-        Block content.
-      \end{alertblock}
-
-      \begin{exampleblock}{Example}
-        Block content.
-      \end{exampleblock}
-
-  \end{columns}
-\end{frame}
-\begin{frame}{Math}
-  \begin{equation*}
-    e = \lim_{n\to \infty} \left(1 + \frac{1}{n}\right)^n
-  \end{equation*}
-\end{frame}
-\begin{frame}{Line plots}
-  \begin{figure}
-    \begin{tikzpicture}
-      \begin{axis}[
-        mlineplot,
-        width=0.9\textwidth,
-        height=6cm,
-      ]
-
-        \addplot {sin(deg(x))};
-        \addplot+[samples=100] {sin(deg(2*x))};
-
-      \end{axis}
-    \end{tikzpicture}
-  \end{figure}
-\end{frame}
-\begin{frame}{Bar charts}
-  \begin{figure}
-    \begin{tikzpicture}
-      \begin{axis}[
-        mbarplot,
-        xlabel={Foo},
-        ylabel={Bar},
-        width=0.9\textwidth,
-        height=6cm,
-      ]
-
-      \addplot plot coordinates {(1, 20) (2, 25) (3, 22.4) (4, 12.4)};
-      \addplot plot coordinates {(1, 18) (2, 24) (3, 23.5) (4, 13.2)};
-      \addplot plot coordinates {(1, 10) (2, 19) (3, 25) (4, 15.2)};
-
-      \legend{lorem, ipsum, dolor}
-
-      \end{axis}
-    \end{tikzpicture}
-  \end{figure}
-\end{frame}
-\begin{frame}{Quotes}
-  \begin{quote}
-    Veni, Vidi, Vici
-  \end{quote}
-\end{frame}
-
-{%
-\setbeamertemplate{frame footer}{My custom footer}
-\begin{frame}[fragile]{Frame footer}
-    \themename defines a custom beamer template to add a text to the footer. It can be set via
-    \begin{verbatim}\setbeamertemplate{frame footer}{My custom footer}\end{verbatim}
+    \end{column}
+    \begin{column}{0.4\textwidth}
+      \includegraphics[width=\linewidth]{images/todd_nn_massplane.png}\\
+      \includegraphics[width=\linewidth]{images/todd_nn_hist.png}\\
+    \end{column}
+​  \end{columns}
 \end{frame}
 }
-
-\begin{frame}{References}
-  Some references to showcase [allowframebreaks] \cite{knuth92,ConcreteMath,Simpson,Er01,greenwade93}
+%%%%%%%%%%%%%%%%%%%%% SLIDE 6
+\begin{frame}{Neural Network Optimization}
+  What if we...
+  \begin{itemize}
+    \item Add more bins?
+    \item Add other variables? (e.g. 7-masses, NTag)
+    \item Smooth data (kde, polynomial, ...)?
+    \item NTag Network
+    \item Overall impression: hard to improve by tweaks, should try another model
+  \end{itemize}
 \end{frame}
 
-\section{Conclusion}
-
-\begin{frame}{Summary}
-
-  Get the source of this theme and the demo presentation from
-
-  \begin{center}\url{github.com/matze/mtheme}\end{center}
-
-  The theme \emph{itself} is licensed under a
-  \href{http://creativecommons.org/licenses/by-sa/4.0/}{Creative Commons
-  Attribution-ShareAlike 4.0 International License}.
-
-  \begin{center}\ccbysa\end{center}
-
+%%%%%%%%%%%%%%%%%%%%% SLIDE 7
+\begin{frame}{New Approach: Gaussian Processes}
+  \begin{itemize}
+    \item smooth estimator, built-in variance calculation
+    \item relies on variogram
+    \item variogram equation and parameters
+    \item some ways of auto-calculating parameters, but can we do better?
+    \item best auto-Gaussian
+  \end{itemize}
 \end{frame}
 
-{\setbeamercolor{palette primary}{fg=black, bg=yellow}
-\begin{frame}[standout]
-  Questions?
+%%%%%%%%%%%%%%%%%%%%% SLIDE 8
+\begin{frame}{Gaussian Processes Tweaks and Results}
+  \begin{itemize}
+    \item Tested a bunch of variograms, insert best images
+    \item tweaked to make variance low and flat
+    \item tried 3d GPs fit, but won't run
+    \item bummer: despite variance being flat, can't get variance much lower than 100\% 
+  \end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%% SLIDE 9
+\begin{frame}{Flow Models}
+  aaaaaa
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%% SLIDE 10
+\begin{frame}{Comparison of Flows to NN and GPR}
+  Insert a bunch of other figures
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%% CLOSER
+% set background image to be a massplane or something
+{\setbeamercolor{palette primary}{fg=white, bg=mDarkTeal}
+\setbeamertemplate{footline}[default]
+\begin{frame}[standout, noframenumbering]
+  Questions?\\
+  Comments?\\
+  Any other techniques we should try?
 \end{frame}
 }
 
 \appendix
 
-\begin{frame}[fragile]{Backup slides}
-  Sometimes, it is useful to add slides at the end of your presentation to
-  refer to during audience questions.
-
-  The best way to do this is to include the \verb|appendixnumberbeamer|
-  package in your preamble and call \verb|\appendix| before your backup slides.
-
-  \themename will automatically turn off slide numbering and progress bars for
-  slides in the appendix.
-\end{frame}
-
-\begin{frame}[allowframebreaks]{References}
-
-  \bibliography{demo}
-  \bibliographystyle{abbrv}
-
+%%%%%%%%%%%%%%%%%%%%% BACKUP
+\begin{frame}{Backup Slides}
+  \centering
+  \href{https://docs.google.com/presentation/d/1HImb0b95RuvVrA4HmL7cHfeurqykYyKxsTvzd4683Mw/edit?usp=sharing}{\alert{Link to Google Slides with more details}}
 \end{frame}
 
 \end{document}
