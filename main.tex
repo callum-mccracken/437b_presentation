@@ -7,7 +7,7 @@
 \usepackage[scale=2]{ccicons}
 \usepackage{pgfplots}
 \usepackage{xspace}
-\usepackage{tikz-feynman}
+\usepackage[compat=1.1.0]{tikz-feynman}
 
 \usetheme[progressbar=frametitle,
 subsectionpage=progressbar,
@@ -56,8 +56,11 @@ Collaborators: Todd Seiss, Mel Shochet}
 
 \maketitle
 
-{%
-\setbeamertemplate{frame footer}{Image sources: \href{link}{\alert{Accelerator Complex}}, \href{link}{\alert{ATLAS}}, \href{link}{\alert{Standard Model}}}
+%%%%%%%%%%%%%%%%%%%%% SLIDE 1
+{\setbeamertemplate{frame footer}{Image sources:
+  \href{https://public-archive.web.cern.ch/en/research/AccelComplex-en.html}{\alert{Accelerator Complex}}, 
+  \href{https://atlas.cern/discover/detector}{\alert{ATLAS}}, 
+  \href{https://en.wikipedia.org/wiki/Higgs_boson}{\alert{Standard Model}}}
 \begin{frame}{Overview: Higgs Research}
   \begin{columns}[onlytextwidth]
     \begin{column}{0.4\textwidth}
@@ -73,61 +76,51 @@ Collaborators: Todd Seiss, Mel Shochet}
 }
 
 
+%%%%%%%%%%%%%%%%%%%%% SLIDE 2
 \begin{frame}{The Big Picture -- Measuring the Higgs Self-Coupling}
   Relevant section of the SM Lagrangian for Higgs potential:\\
   
   $$V(\phi) = -\mu^2 \phi^2 + \lambda \phi^4 + \ldots \text{ Taylor exp. at min } \to V_T(\phi) = -\frac{\mu^4}{4\lambda} + \frac{\sqrt{2}\mu^3}{\lambda} \phi - 4 \mu^2\phi^2 + 2\sqrt{2\lambda}\mu\phi^3 + \ldots$$
-
-  \begin{itemize}
-    \item Constant and $\phi$ terms: can eliminate with change of coordinates, $\phi^2$: mass term,\\
-    $\phi^3$: self-interaction or \alert{self-coupling} term, not well constrained
-  \end{itemize}
+  
+  Constant and $\phi$ terms: can eliminate with change of coordinates, $\phi^2$: mass term,\\
+  $\phi^3$: self-interaction or \alert{self-coupling} term, not well constrained\\ (current best: $\kappa_\lambda = (2\sqrt{2\lambda}\mu)/(2\sqrt{2\lambda}\mu)_{\text{SM}}$, $\kappa_\lambda \in [-2.3, 10.3]$ at 95\% confidence)
 
   \input{standalone_feynman.tex}
-
+  To find $\kappa_\lambda$ we need $HH$ events, and we can find them using jets!
 \end{frame}
 
-\section{Titleformats}
 
-\begin{frame}{Metropolis titleformats}
-	\themename supports 4 different titleformats:
-	\begin{itemize}
-		\item Regular
-		\item \textsc{Smallcaps}
-		\item \textsc{allsmallcaps}
-		\item ALLCAPS
-	\end{itemize}
-	They can either be set at once for every title type or individually.
-\end{frame}
-
-\subsection{Tricks}
-
-{
-    \metroset{titleformat frame=smallcaps}
-\begin{frame}{Small caps}
-	This frame uses the \texttt{smallcaps} titleformat.
-
-	\begin{alertblock}{Potential Problems}
-		Be aware, that not every font supports small caps. If for example you typeset your presentation with pdfTeX and the Computer Modern Sans Serif font, every text in smallcaps will be typeset with the Computer Modern Serif font instead.
-	\end{alertblock}
+%%%%%%%%%%%%%%%%%%%%% SLIDE 3
+{\setbeamertemplate{frame footer}{Image adapted from \href{https://en.wikipedia.org/wiki/B-tagging}{\alert{here}}}
+\begin{frame}{Jets and Pairing}
+  \begin{columns}[onlytextwidth]
+    \begin{column}{0.76\textwidth}
+      \centering
+      \includegraphics[width=0.35\linewidth]{images/branching_ratios.png}\\
+      $H \to 60\%\space b\bar{b} \to 2 \times b \text{ hadrons } \to 2 \times b\text{-jets}$
+      \begin{itemize}
+        \item \alert{Jets} are collections of particles with appx. the same direction
+        \item ATLAS can't directly detect $H$ or $b$. Instead, use \alert{$b$-jets}, which can be directly detected (using secondary vertices)
+        \item $b$-jet detection is not a perfect process (hence 437A report), and neither is \alert{pairing} -- choosing which jets came from which $H$
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.25\textwidth}
+      \includegraphics[width=\linewidth]{images/jets_and_pairing.png}
+    \end{column}
+​  \end{columns}
 \end{frame}
 }
 
-{
-\metroset{titleformat frame=allsmallcaps}
-\begin{frame}{All small caps}
-	This frame uses the \texttt{allsmallcaps} titleformat.
-
-	\begin{alertblock}{Potential problems}
-		As this titleformat also uses smallcaps you face the same problems as with the \texttt{smallcaps} titleformat. Additionally this format can cause some other problems. Please refer to the documentation if you consider using it.
-
-		As a rule of thumb: Just use it for plaintext-only titles.
+%%%%%%%%%%%%%%%%%%%%% SLIDE 4
+\begin{frame}{The Background Modelling Problem, and the 2$b$RW solution}
+  
+  
+  \begin{alertblock}{Potential problems}
+		This is a potato
 	\end{alertblock}
 \end{frame}
-}
 
-{
-\metroset{titleformat frame=allcaps}
+%%%%%%%%%%%%%%%%%%%%% SLIDE 5
 \begin{frame}{All caps}
 	This frame uses the \texttt{allcaps} titleformat.
 
@@ -135,7 +128,6 @@ Collaborators: Todd Seiss, Mel Shochet}
 		This titleformat is not as problematic as the \texttt{allsmallcaps} format, but basically suffers from the same deficiencies. So please have a look at the documentation if you want to use it.
 	\end{alertblock}
 \end{frame}
-}
 
 \section{Elements}
 
