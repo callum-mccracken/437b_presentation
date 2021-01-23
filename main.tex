@@ -61,7 +61,7 @@ Collaborators: Todd Seiss, Mel Shochet}
   \href{https://public-archive.web.cern.ch/en/research/AccelComplex-en.html}{\alert{Accelerator Complex}}, 
   \href{https://atlas.cern/discover/detector}{\alert{ATLAS}}, 
   \href{https://en.wikipedia.org/wiki/Higgs_boson}{\alert{Standard Model}}}
-\begin{frame}{Overview: Higgs Research}
+\begin{frame}{Overview: Higgs Research with ATLAS}
   \begin{columns}[onlytextwidth]
     \begin{column}{0.4\textwidth}
       \centering
@@ -77,7 +77,7 @@ Collaborators: Todd Seiss, Mel Shochet}
 
 
 %%%%%%%%%%%%%%%%%%%%% SLIDE 2
-\begin{frame}{The Big Picture -- Measuring the Higgs Self-Coupling}
+\begin{frame}{The Larger Project: Measuring the Higgs Self-Coupling}
   Relevant section of the SM Lagrangian for Higgs potential:\\
   
   $$V(\phi) = -\mu^2 \phi^2 + \lambda \phi^4 + \ldots \text{ Taylor exp. at min } \to V_T(\phi) = -\frac{\mu^4}{4\lambda} + \frac{\sqrt{2}\mu^3}{\lambda} \phi - 4 \mu^2\phi^2 + 2\sqrt{2\lambda}\mu\phi^3 + \ldots$$
@@ -92,7 +92,7 @@ Collaborators: Todd Seiss, Mel Shochet}
 
 %%%%%%%%%%%%%%%%%%%%% SLIDE 3
 {\setbeamertemplate{frame footer}{Image sources: \href{https://arxiv.org/abs/1709.04533}{\alert{branching ratios}}, \href{https://en.wikipedia.org/wiki/B-tagging}{b-tagging image adapted from \alert{here}}}
-\begin{frame}{Jets and Pairing}
+\begin{frame}{Background: Jets and Pairing}
   \begin{columns}[onlytextwidth]
     \begin{column}{0.76\textwidth}
       \centering
@@ -111,24 +111,36 @@ Collaborators: Todd Seiss, Mel Shochet}
 \end{frame}
 }
 
-
-
 %%%%%%%%%%%%%%%%%%%%% SLIDE 4
-\begin{frame}{Welcome to the Mass Plane}
+\begin{frame}{$HH$ Backgrounds}
+  \begin{itemize}
+    \item When looking at $HH$ events, singal = 4 $b$-jets, background = other QCD processes
+    \item In 95\% of LHC analyses, backgrounds can be simulated
+    (e.g. with GEANT)
+    \item But QCD modelling is difficult\\
+    (computationally and physics-wise, especially for many-jet events)
+    \item Motivates using data for background estimation
+    \item But how?
+  \end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%% SLIDE 5
+\begin{frame}{Our Project: Background Modelling}
   \begin{itemize}
     \item \alert{Mass plane}: reconstructed $(m_{H_1}, m_{H_2})$ values, $m_{H_1}$ has higher transverse momentum
     \item We expect a peak around $(125, 125)$ (all masses in GeV)
-    \item \alert{The Problem of Background Modelling}: how to estimate background around peak?
-    \item Signal Region (SR): blinded to reduce study bias
-    \item Control Region (CR): for calibrating background estimation models
-    \item Validation Region (VR): for testing background models
+    \item \alert{The Problem}: how to estimate background around peak?\\
+    Large source of error ($|\kappa_\lambda| < 7 \to |\kappa_\lambda| < 9$)
+    \item Signal Region (SR, in red): blinded to reduce study bias
+    \item We want to ``fill in'' the SR
   \end{itemize}
   \centering
-  \includegraphics[width=0.45\linewidth]{images/regions.png} \hspace{1cm}
-  \includegraphics[width=0.45\linewidth, trim = 0 0 0 1.5cm, clip]{images/fullmassplane_4tag_data.png}
+  \includegraphics[width=0.35\linewidth, trim = 0 0 0 1.5cm, clip]{images/fullmassplane_4tag_data.png}
 \end{frame}
 
-\begin{frame}{The 2$b$RW Solution}
+%%%%%%%%%%%%%%%%%%%%% SLIDE 6
+\begin{frame}{Current Approach: 2$b$RW}
   \begin{columns}[onlytextwidth]
     \begin{column}{0.6\textwidth}
       \begin{itemize}
@@ -151,68 +163,152 @@ Collaborators: Todd Seiss, Mel Shochet}
 	\end{alertblock}
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%% SLIDE 5
-{\setbeamertemplate{frame footer}{Histogram image from Todd Seiss}
+%%%%%%%%%%%%%%%%%%%%% SLIDE 7
+{\setbeamertemplate{frame footer}{\vspace{0.2cm}Histogram image from Todd Seiss. Note: this is 4$b$ VR, most plots will use 2$b$RW SR}
 \begin{frame}{New Approach: Neural Network}
   \begin{columns}[onlytextwidth]
     \begin{column}{0.6\textwidth}
       \begin{itemize}
         \item Given enough data, neural networks can learn arbitrary functions
-        \item Goal: reproduce 2$b$RW $\pm 10\%$ using only 4$b$ data
+        \item Goal: fill in the SR, and reproduce 2$b$RW $\pm 10\%$ using only 4$b$ data
         \item Inputs: $(m_{H_1}, m_{H_2}, m_{HH})$, output: $P(m_{H_1}, m_{H_2})$
-        \item Initial model: layers (10,50,50,50), 100 epochs
-        \item Generally good-looking mass plane predictions,\\
+        \item Initially: good-looking mass plane predictions,\\
               2$b$RW agreement is not great though
       \end{itemize}
     \end{column}
     \begin{column}{0.4\textwidth}
       \includegraphics[width=\linewidth]{images/todd_nn_massplane.png}\\
-      \includegraphics[width=\linewidth]{images/todd_nn_hist.png}\\
+      \hspace{0.3cm}\includegraphics[width=0.9\linewidth]{images/todd_nn_hist.png}\\
     \end{column}
 ​  \end{columns}
 \end{frame}
 }
-%%%%%%%%%%%%%%%%%%%%% SLIDE 6
-\begin{frame}{Neural Network Optimization}
-  What if we...
-  \begin{itemize}
-    \item Add more bins?
-    \item Add other variables? (e.g. 7-masses, NTag)
-    \item Smooth data (kde, polynomial, ...)?
-    \item NTag Network
-    \item Overall impression: hard to improve by tweaks, should try another model
-  \end{itemize}
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%% SLIDE 7
-\begin{frame}{New Approach: Gaussian Processes}
-  \begin{itemize}
-    \item smooth estimator, built-in variance calculation
-    \item relies on variogram
-    \item variogram equation and parameters
-    \item some ways of auto-calculating parameters, but can we do better?
-    \item best auto-Gaussian
-  \end{itemize}
-\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%% SLIDE 8
-\begin{frame}{Gaussian Processes Tweaks and Results}
-  \begin{itemize}
-    \item Tested a bunch of variograms, insert best images
-    \item tweaked to make variance low and flat
-    \item tried 3d GPs fit, but won't run
-    \item bummer: despite variance being flat, can't get variance much lower than 100\% 
-  \end{itemize}
+\begin{frame}{Neural Network Optimization}
+  \begin{columns}[onlytextwidth]
+    \begin{column}{0.6\textwidth}
+      What if we...
+      \begin{itemize}
+        \item Further optimize network hyperparameters?
+        \item Add more bins?
+        \item Add other variables (e.g. more masses, NTag)?
+        \item Smooth the data (fit a polynomial, KDE, ...)?
+      \end{itemize}
+      Overall impression: large improvements unlikely from non-drastic changes in approach
+      \begin{itemize}
+        \item (note: images are from different models, to show how many of them had similar performance to before)
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.4\textwidth}
+      \includegraphics[width=\linewidth]{images/model_20_288_384_416_512_192_30e_25x25_poisson_fullmassplane_4bNN.png}\\
+      \hspace{0.3cm}\includegraphics[width=0.9\linewidth]{images/model_2b4b_10505050_30e_25x25_poisson_50mhh_mhhSR.png}\\
+    \end{column}
+​  \end{columns}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%% SLIDE 9
-\begin{frame}{Flow Models}
-  aaaaaa
+\begin{frame}{New Approach: Gaussian Process Regression}
+  \begin{columns}[onlytextwidth]
+    \begin{column}{0.6\textwidth}
+      \begin{itemize}
+        \item Inputs: $m_{H_1}, m_{H_2}$, output: $P(m_{H_1}, m_{H_2})$ 
+        \item Also gives estimator variance ($\exists$ assumptions)
+        \item Relies on \alert{variogram}
+              (ideally could calculate, given finite data must guess)
+        \includegraphics[width=0.5\linewidth]{images/variogram_variables.jpg}\\
+        \item Tried a bunch of different ``best-guess'' variograms, e.g. linear and exponential:
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.4\textwidth}
+      \phantom{aaaaaa}
+      \includegraphics[width=0.8\linewidth, trim=0 0 4cm 1.5cm, clip]{images/kriging_Trueexponential_4b.png}\\
+      \includegraphics[width=0.8\linewidth, trim=0 0 4cm 1.5cm, clip]{images/kriging_Truelinear_4b.png}\\
+    \end{column}
+​  \end{columns}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%% SLIDE 10
-\begin{frame}{Comparison of Flows to NN and GPR}
-  Insert a bunch of other figures
+\begin{frame}{GPR Optimization}
+  \begin{columns}[onlytextwidth]
+    \begin{column}{0.4\textwidth}
+      \begin{itemize}
+        \item Tested many variograms
+        \item Selected low \& flat variance
+        \item Best ones still high relative to prediction ($\sim 1 \times$)
+        \item Tried 3D GPR, increases computation time too much
+      \end{itemize}
+      Impressions:
+      \begin{itemize}
+        \item Good mass plane,\\ less-good histogram
+        \item Interesting variances are always so large
+        \item Figures: Gaussian variogram ($s=800,r=160,n=10^{-8}$)
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.6\textwidth}
+      \includegraphics[width=0.49\linewidth, trim=0 0 0cm 0cm, clip]{images/kriging_Truegaussian{'sill'_ 800, 'range'_ 160, 'nugget'_ 1e-08}_fullmassplane_4b_pred.png}
+      \includegraphics[width=0.49\linewidth, trim=0 0 0cm 0cm, clip]{images/gp_tuned_mhh_histogram.png}
+      \includegraphics[width=0.49\linewidth, trim=0 0 0cm 0cm, clip]{images/kriging_variance_Truegaussian{'sill'_ 800, 'range'_ 160, 'nugget'_ 1e-08}_4b.png}
+      \includegraphics[width=0.49\linewidth, trim=0cm 0cm 0cm 0cm, clip]{images/relative_variance_tuned_gp.png}
+    \end{column}
+​  \end{columns}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%% SLIDE 11
+{\setbeamertemplate{frame footer}{Images from Nicole Hartman.}
+\begin{frame}{Flow Models}
+  \begin{columns}[onlytextwidth]
+    \begin{column}{0.6\textwidth}
+      \begin{itemize}
+        \item The idea of \alert{flows}: build arbitrary function from base function + invertible transformations
+        \item \alert{R-NVP} transformations: fast compute times
+        \item Benefit: significantly smaller model space, can handle more variables
+        \item Code was set up for 2$b$ \alert{pairAGraph} data + figures compare 2$b$ SR prediction vs 2$b$ SR data
+        \item With larger models, some nice results are possible (e.g. 5-variable model in figure)
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.4\textwidth}
+      \centering
+      \includegraphics[width=\linewidth, trim=0 0 0cm 0cm, clip]{images/nicole_pres_screenshot.png}
+      \includegraphics[width=0.7\linewidth, trim=0 0 45cm 4cm, clip]{images/nicole_histogram.png}
+    \end{column}
+​  \end{columns}
+\end{frame}
+}
+%%%%%%%%%%%%%%%%%%%%% SLIDE 12
+\begin{frame}{Comparison of FMs to NNs and GPR}
+  \centering
+  Use 2$b$ pairAGraph data on previous methods, compare with
+  a FM with inputs $(m_{H_1}, m_{H_2})$:\\[1cm]
+  \begin{columns}[onlytextwidth]
+    \begin{column}{0.33\textwidth}
+      \centering
+      NN:\\
+      \includegraphics[width=\linewidth, trim=0 0 0cm 0cm, clip]{images/PG_h5_model_2b_10505050_10e_25x25_poisson_20mhh_mhhSR.png}
+    \end{column}
+    \begin{column}{0.33\textwidth}
+      \centering
+      GPR:\\
+      \includegraphics[width=\linewidth, trim=0 0 0cm 0cm, clip]{images/PG_h5_2d_kriging_Truegaussian{'sill'_ 800, 'range'_ 160, 'nugget'_ 1e-08}_mhhSR.png}
+    \end{column}
+    \begin{column}{0.33\textwidth}
+      \centering
+      FM:\\
+      \phantom{aaaaaaaaa}\\
+      \includegraphics[width=\linewidth, trim=0 0 0cm 1.2cm, clip]{images/flows_m_hh_histogram.png}
+    \end{column}
+​  \end{columns}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%% SLIDE 13
+\begin{frame}{Conclusion}
+  \begin{itemize}
+    \item Direct NN regressions and GPR capture main features of the complicated background
+    \item However, the existing 2$b$RW procedure seems to perform better for the moment
+    \item Flow models with more variables look promising\\
+    (or potentially other similar techniques, e.g. variational auto-encoders)
+    %\item Conclude that existing 2$b$RW strategy is currently the best choice
+  \end{itemize}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%% CLOSER
